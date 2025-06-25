@@ -157,7 +157,7 @@ document.querySelector(".form").addEventListener("submit", async function (e) {
 
   try {
     const response = await fetch(
-      "https://portfolio-backend-hkoz.onrender.com/send-email",
+      "https://portfolio-backend-astq.onrender.com/send-email",
       {
         method: "POST",
         headers: {
