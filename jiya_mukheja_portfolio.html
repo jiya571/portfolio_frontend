@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiya Mukheja — Web Developer & Content Creator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #18181f;
+    --accent: #c8a96e;
+    --accent2: #e8c98e;
+    --text: #f0ede8;
+    --muted: #9997a0;
+    --border: rgba(200,169,110,0.18);
+    --card: #14141c;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.5px;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent2); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent2);
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .nav-cta:hover { background: var(--accent); color: #0a0a0f; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,169,110,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { max-width: 720px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(200,169,110,0.1);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 12px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 14px; border-radius: 2px;
+    margin-bottom: 28px;
+  }
+  .hero-tag::before { content: '◆'; font-size: 8px; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 80px);
+    font-weight: 700; line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+  .hero h1 span { color: var(--accent2); }
+  .hero-desc {
+    font-size: 17px; color: var(--muted);
+    max-width: 560px; line-height: 1.8;
+    margin-bottom: 40px;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent);
+    color: #0a0a0f;
+    padding: 14px 32px; border-radius: 4px;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--text);
+    padding: 14px 32px; border-radius: 4px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; border: 1px solid rgba(240,237,232,0.2); cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent2); }
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    padding-top: 40px; border-top: 1px solid var(--border);
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px; font-weight: 700; color: var(--accent2);
+    line-height: 1;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 0.5px; margin-top: 4px; }
+
+  /* SECTION BASE */
+  section { padding: 100px 5%; }
+  .section-tag {
+    font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 4vw, 44px); font-weight: 700;
+    line-height: 1.15; color: var(--text);
+    margin-bottom: 16px;
+  }
+  .section-sub { font-size: 16px; color: var(--muted); max-width: 520px; line-height: 1.8; }
+  .divider { width: 48px; height: 2px; background: var(--accent); margin: 20px 0 48px; }
+
+  /* SERVICES */
+  .services-bg { background: var(--bg2); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 48px;
+  }
+  .service-card {
+    background: var(--card);
+    padding: 36px 32px;
+    position: relative;
+    transition: background 0.25s;
+  }
+  .service-card:hover { background: #1c1c26; }
+  .service-icon {
+    width: 48px; height: 48px;
+    background: rgba(200,169,110,0.12);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  .service-card h3 {
+    font-size: 17px; font-weight: 500; color: var(--text);
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .service-card p {
+    font-size: 14px; color: var(--muted); line-height: 1.7;
+  }
+  .service-tag {
+    display: inline-block;
+    background: rgba(200,169,110,0.1);
+    color: var(--accent);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 3px 10px; border-radius: 2px;
+    margin-top: 14px;
+  }
+
+  /* SKILLS */
+  .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; margin-top: 48px; }
+  .skill-group { margin-bottom: 32px; }
+  .skill-group-name { font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pill {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 13px; font-weight: 400;
+    padding: 6px 16px; border-radius: 2px;
+    transition: all 0.2s;
+  }
+  .skill-pill:hover { border-color: var(--accent); color: var(--accent2); }
+  .exp-list { display: flex; flex-direction: column; gap: 24px; }
+  .exp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    border-radius: 0 6px 6px 0;
+  }
+  .exp-company { font-size: 16px; font-weight: 500; color: var(--text); }
+  .exp-date { font-size: 12px; color: var(--accent); font-weight: 500; letter-spacing: 0.5px; margin: 4px 0 10px; }
+  .exp-points { list-style: none; }
+  .exp-points li {
+    font-size: 13px; color: var(--muted); line-height: 1.6; padding: 2px 0;
+    padding-left: 14px; position: relative;
+  }
+  .exp-points li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 11px; }
+
+  /* PROJECTS */
+  .projects-bg { background: var(--bg2); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+  .project-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 32px;
+    position: relative; overflow: hidden;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .project-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .project-card::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(200,169,110,0.08), transparent 70%);
+  }
+  .project-type { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .project-card h3 { font-size: 20px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+  .project-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+  .project-tech { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
+  .tech-badge {
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.2);
+    color: var(--accent);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    padding: 4px 10px; border-radius: 2px;
+  }
+
+  /* CONTACT */
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info { margin-top: 48px; }
+  .contact-item {
+    display: flex; align-items: center; gap: 16px;
+    padding: 20px 0; border-bottom: 1px solid var(--border);
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    background: rgba(200,169,110,0.1);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .contact-label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+  .contact-val { font-size: 15px; color: var(--text); font-weight: 500; }
+  .contact-form { margin-top: 48px; display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: var(--muted); }
+  .form-group input, .form-group textarea {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 16px; border-radius: 4px;
+    font-size: 14px; font-family: 'DM Sans', sans-serif;
+    outline: none; transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-group input:focus, .form-group textarea:focus { border-color: var(--accent); }
+  .form-group input::placeholder, .form-group textarea::placeholder { color: var(--muted); }
+  .form-submit {
+    background: var(--accent);
+    color: #0a0a0f;
+    border: none;
+    padding: 14px 32px; border-radius: 4px;
+    font-size: 14px; font-weight: 500;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s; margin-top: 8px;
+    text-align: center;
+  }
+  .form-submit:hover { background: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 5%;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 16px;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: var(--accent2);
+  }
+  .footer-copy { font-size: 13px; color: var(--muted); }
+
+  @media (max-width: 720px) {
+    .skills-layout, .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    nav .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Aurevia Studio</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Web Developer & Content Creator</div>
+    <h1>Hi, I'm <span>Jiya</span><br>Mukheja</h1>
+    <p class="hero-desc">
+      Creative and versatile developer crafting stunning websites, e-commerce stores, and social media content that attracts and retains users.
+    </p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary">View My Services</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-val">2+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div>
+        <div class="stat-val">3</div>
+        <div class="stat-label">Companies Worked</div>
+      </div>
+      <div>
+        <div class="stat-val">10+</div>
+        <div class="stat-label">Skills Mastered</div>
+      </div>
+      <div>
+        <div class="stat-val">BCA</div>
+        <div class="stat-label">Punjabi University</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-bg" id="services">
+  <div class="section-tag">What I Offer</div>
+  <div class="section-title">My Services</div>
+  <p class="section-sub">From building websites to creating viral content — I handle it all with precision and creativity.</p>
+  <div class="divider"></div>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🌐</div>
+      <h3>WordPress Website Development</h3>
+      <p>Custom WordPress sites with Elementor, theme customization, plugin setup, speed optimization, and mobile responsiveness.</p>
+      <span class="service-tag">WordPress · Elementor · CMS</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <h3>E-Commerce Store Setup</h3>
+      <p>Full WooCommerce & Shopify stores — product listing, cart, checkout customization, and complete store management.</p>
+      <span class="service-tag">WooCommerce · Shopify</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎨</div>
+      <h3>Canva Graphic Design</h3>
+      <p>Eye-catching social media posts, banners, reels covers, branding kits, and digital creatives designed in Canva.</p>
+      <span class="service-tag">Canva · Photoshop · Figma</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Social Media Management</h3>
+      <p>End-to-end Instagram & Facebook management — content creation, scheduling, reels, query handling, and brand growth.</p>
+      <span class="service-tag">Instagram · Facebook · Reels</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📦</div>
+      <h3>Product Listing & Marketplace</h3>
+      <p>Professional product listing on Amazon, Myntra, Flipkart, and Shopify with proper categorization and SEO-friendly descriptions.</p>
+      <span class="service-tag">Amazon · Myntra · Flipkart</span>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🔍</div>
+      <h3>SEO & Content Optimization</h3>
+      <p>Keyword research, on-page SEO, content optimization, and SEM basics to improve visibility and drive organic traffic.</p>
+      <span class="service-tag">SEO · SEM · Keywords</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS & EXPERIENCE -->
+<section id="skills">
+  <div class="section-tag">Expertise</div>
+  <div class="section-title">Skills & Experience</div>
+  <p class="section-sub">Built through real-world projects across multiple companies and industries.</p>
+  <div class="divider"></div>
+
+  <div class="skills-layout">
+    <div>
+      <div class="skill-group">
+        <div class="skill-group-name">Web & Technical</div>
+        <div class="skill-pills">
+          <span class="skill-pill">WordPress</span>
+          <span class="skill-pill">Elementor</span>
+          <span class="skill-pill">WooCommerce</span>
+          <span class="skill-pill">Shopify</span>
+          <span class="skill-pill">HTML</span>
+          <span class="skill-pill">CSS</span>
+          <span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">Bootstrap</span>
+          <span class="skill-pill">CMS</span>
+          <span class="skill-pill">Fullpivot</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Design & Creativity</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Canva</span>
+          <span class="skill-pill">Figma</span>
+          <span class="skill-pill">Photoshop</span>
+          <span class="skill-pill">Video Editing</span>
+          <span class="skill-pill">Banner Design</span>
+        </div>
+      </div>
+      <div class="skill-group">
+        <div class="skill-group-name">Digital Marketing</div>
+        <div class="skill-pills">
+          <span class="skill-pill">Social Media Mgmt</span>
+          <span class="skill-pill">Content Creation</span>
+          <span class="skill-pill">SEO</span>
+          <span class="skill-pill">SEM</span>
+          <span class="skill-pill">Influencer Collab</span>
+          <span class="skill-pill">Product Listing</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-list">
+      <div class="exp-card">
+        <div class="exp-company">Iraya Tech</div>
+        <div class="exp-date">July 2025 – May 2026</div>
+        <ul class="exp-points">
+          <li>WordPress & Elementor website development</li>
+          <li>Theme customization & plugin management</li>
+          <li>Fullpivot CMS platform development</li>
+          <li>Canva & Photoshop creatives</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-company">Overx Innovations Pvt Ltd</div>
+        <div class="exp-date">October 2024 – March 2025</div>
+        <ul class="exp-points">
+          <li>Social media strategy & influencer collaboration</li>
+          <li>Reels, posts, and banner creation</li>
+          <li>Instagram query & review management</li>
+        </ul>
+      </div>
+      <div class="exp-card">
+        <div class="exp-company">Archworkx Prosys Pvt Ltd</div>
+        <div class="exp-date">April 2024 – September 2024 · Internship</div>
+        <ul class="exp-points">
+          <li>Facebook & Instagram management</li>
+          <li>Product listing on Amazon, Myntra, Flipkart</li>
+          <li>SEO & keyword research basics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-bg" id="projects">
+  <div class="section-tag">Portfolio</div>
+  <div class="section-title">Featured Projects</div>
+  <p class="section-sub">Real websites built with real results.</p>
+  <div class="divider"></div>
+
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-type">E-Commerce Website</div>
+      <h3>Yasasri</h3>
+      <p>Full-featured e-commerce website with product management, custom cart & checkout, and mobile-responsive design built from the ground up.</p>
+      <div class="project-tech">
+        <span class="tech-badge">WordPress</span>
+        <span class="tech-badge">WooCommerce</span>
+        <span class="tech-badge">Elementor</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-type">Professional Website</div>
+      <h3>SureGuard</h3>
+      <p>Professional insurance website with clean, responsive layouts, user-friendly page structure, and custom design using Elementor.</p>
+      <div class="project-tech">
+        <span class="tech-badge">WordPress</span>
+        <span class="tech-badge">Elementor</span>
+        <span class="tech-badge">Responsive Design</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">Let's Work Together</div>
+  <div class="section-title">Get In Touch</div>
+  <p class="section-sub">Have a project in mind? I'd love to hear about it.</p>
+  <div class="divider"></div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-val">+91 89682 39768</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📧</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-val">jiyamukheja359@gmail.com</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">🎓</div>
+        <div>
+          <div class="contact-label">Education</div>
+          <div class="contact-val">BCA · Punjabi University, Patiala</div>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-val">Punjab, India</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="Enter your name">
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Service Required</label>
+        <input type="text" placeholder="e.g. WordPress Website, Canva Design...">
+      </div>
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea rows="4" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button class="form-submit">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Jiya Mukheja</div>
+  <div class="footer-copy">© 2026 · Web Developer & Content Creator · Punjab, India</div>
+</footer>
+
+</body>
+</html>
